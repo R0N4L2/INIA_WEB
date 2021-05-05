@@ -56,11 +56,11 @@ mobileGPSDetect <- function(inputId, value = 0) {
 options(viewer = NULL) # view in browser
 
 header <- dashboardHeader(
-  title = span(img(src = "Logo_GORE_Nuble.png", height = 30),"Aptitud TÃ©rmica para Cultivos",img(src = "inia_telesig.png", height = 30)),
+  title = span(img(src = "Logo_GORE_Nuble.png", height = 30),"Aptitud Térmica para Cultivos",img(src = "inia_telesig.png", height = 30)),
   titleWidth =400,
   dropdownMenu(
     type = "notifications", 
-    headerText = strong("InformaciÃ³n"), 
+    headerText = strong("Información"), 
     icon = icon("info-circle"), 
     badgeStatus = NULL,
     notificationItem(
@@ -68,7 +68,7 @@ header <- dashboardHeader(
       icon = icon("search")
       ),
     notificationItem(
-      text ="Selecciona vÃ©rtices de polÃ­gono",
+      text ="Selecciona vértices de polígono",
       icon =icon("square")
       ),
     notificationItem(
@@ -76,7 +76,7 @@ header <- dashboardHeader(
       icon = icon("map-marker-alt")
       ),
     notificationItem(
-      text = "GPS, busca tu posiciÃ³n",
+      text = "GPS, busca tu posición",
       icon = icon("crosshairs")
       ),
     notificationItem(
@@ -96,7 +96,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     # Setting id makes input$tabs give the tabName of currently-selected tab
     id = "tabs",
-    sliderInput("historia", "LÃ­nea de tiempo:",
+    sliderInput("historia", "Línea de tiempo:",
                 min = 2005, max = 2045,
                 value = 2020, step = 5,sep = ""),
     sliderInput("opacidad", "Opacidad:",
@@ -120,9 +120,9 @@ server <- function(input, output){
       leaflet()%>%addTiles()%>%leafem::addMouseCoordinates()%>%
       setView(lng=-72.1320133,lat=-36.6229604,zoom=9-input$isMobile*2)%>%
       addProviderTiles(providers$CartoDB.Positron, group="Mapa")%>%
-      addProviderTiles(providers$Esri.WorldImagery, group="SatÃ©lite") %>% 
-      addProviderTiles(providers$OpenTopoMap, group="TopogrÃ¡fico")%>%
-      addLayersControl(baseGroups=c('Mapa','SatÃ©lite','TopogrÃ¡fico'),
+      addProviderTiles(providers$Esri.WorldImagery, group="Satélite") %>% 
+      addProviderTiles(providers$OpenTopoMap, group="Topográfico")%>%
+      addLayersControl(baseGroups=c('Mapa','Satélite','Topográfico'),
                      options=layersControlOptions(collapsed=T))%>%  
       addControlGPS(options=gpsOptions(position="topleft",activate=T, 
                                        autoCenter=T,maxZoom = 60,setView=T))%>%
@@ -152,7 +152,7 @@ server <- function(input, output){
     mytext <- paste("Especie:",cultivar$NOMBRE,"<br/>Variedad: ",cultivar$VARIEDAD,
                     "<br/>Aptitud de cultivo: ",cultivar$Aptitud,
                     "<br/>Porcentaje de Aptitud: ",cultivar$APTITUD_T*100,
-                    "%<br/>AÃ±o: ",input$historia,sep="")%>%lapply(htmltools::HTML)
+                    "%<br/>Año: ",input$historia,sep="")%>%lapply(htmltools::HTML)
     leafletProxy("map")%>%clearShapes()%>%clearControls()%>%
       leafem::addFeatures(shapeEdge$geometry,weight=1,color="black",opacity=1,fillOpacity=0)%>%
       addPolygons(data=cultivar,color="#444444",weight=1,smoothFactor=.5,
@@ -211,14 +211,14 @@ server <- function(input, output){
       colnames(data2bar)<-c("Especie","Variedad","Aptitud de cultivo","Porcentaje de Aptitud[%]")
       data2bar<-data2bar[order(-data2bar$'Porcentaje de Aptitud[%]',data2bar$Especie,data2bar$Variedad),]
       chkpoli<-st_as_text(pol1)
-      datageo<-data.frame(c("GeometrÃ­a:",chkpoli))
-      datageo<-cbind(datageo,data.frame(c("Ãrea [Km]:",(st_area(pol1)*111.32^2)%>%round(2))))
-      datageo<-cbind(datageo,c("RegiÃ³n:",unique(shapefile$REGION)))
+      datageo<-data.frame(c("Geometría:",chkpoli))
+      datageo<-cbind(datageo,data.frame(c("Área [Km]:",(st_area(pol1)*111.32^2)%>%round(2))))
+      datageo<-cbind(datageo,c("Región:",unique(shapefile$REGION)))
       datageo<-cbind(datageo,c("Provincia:",paste(unique(shapefile$PROVINCIA), collapse = ', ')))
       datageo<-cbind(datageo,c("Comuna:",paste(unique(shapefile$COMUNA), collapse = ', ')))
-      datageo<-cbind(datageo,c("AÃ±o:",input$historia))
+      datageo<-cbind(datageo,c("Año:",input$historia))
       if("POLYGON" %in% chkpoli){
-        datageo<-cbind(datageo,c("ProporciÃ³n de la comuna [%]:",paste(w*100, collapse = ', ')))
+        datageo<-cbind(datageo,c("Proporción de la comuna [%]:",paste(w*100, collapse = ', ')))
       }
       datageo<-datageo%>%t
       output$downloadData <- downloadHandler(
@@ -236,19 +236,19 @@ server <- function(input, output){
           addPicture("www/inia_telesig.png",sheet0,scale=2,startRow=1,
                      startColumn=6)
           
-          addDataFrame(rbind("Gobierno Regional de Ãuble","Instituto de investigaciones agropecuaria (INIA)","Aptitud TÃ©rmica para Cultivos",
+          addDataFrame(rbind("Gobierno Regional de Ñuble","Instituto de investigaciones agropecuaria (INIA)","Aptitud Térmica para Cultivos",
                              '','','','',
-                             "** Es una zonificaciÃ³n tÃ©rmica, por lo que no se incorpora aptitud de suelo y riego **",
+                             "** Es una zonificación térmica, por lo que no se incorpora aptitud de suelo y riego **",
                              "** Lo que se propone en la plataforma, es solo una sugerencia **",
                              "** La decision final es responsabilidad de cada usuario **",
-                             "MÃ¡s informacion enviar correo a mclaret@inia.cl"),
+                             "Más informacion enviar correo a mclaret@inia.cl"),
                        sheet0,row.names=F,col.names=F,startRow=1,startColumn=3)
           
-          sheet1<-createSheet(wb,sheetName="Datos GeogrÃ¡ficos")
+          sheet1<-createSheet(wb,sheetName="Datos Geográficos")
           addDataFrame(datageo,
                        sheet1,row.names=F,col.names=F,startRow=1,startColumn=1)
           
-          sheet2<-createSheet(wb,sheetName="Aptitud tÃ©rmica")
+          sheet2<-createSheet(wb,sheetName="Aptitud térmica")
           addDataFrame(data2bar,
                        sheet2,row.names=F,col.names=T,startRow=1,startColumn=1)
           
@@ -262,7 +262,7 @@ server <- function(input, output){
         fluidRow(column(3,downloadButton('downloadData', 'Descarga',class="mybutton"),
                         tags$head(tags$style(".skin-black .sidebar .mybutton{color: black;}")))
                  )
-      }else{h6("No pertenece a la RegiÃ³n")}
+      }else{h6("No pertenece a la Región")}
     })
   })
 }
