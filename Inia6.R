@@ -169,7 +169,7 @@ server <- function(input, output){
     remove(shapeEdge)
   })
   observeEvent(input$map_draw_new_feature,{
-    shapefile <-st_read(paste0(getwd(),"/DATA/Nuble_Comunas/Nuble_comunas.shp"))
+    shapefile <-st_read(paste0(getwd(),"/DATA/Nuble_comunas/Nuble_comunas.shp"))
     feature <- input$map_draw_new_feature
     data2bar<-st_read(paste0(getwd(),"/DATA/Cultivos/SHAPEFILE_",input$historia,".shp"),
                           query=paste0("select CLASS_num,NOMBRE,VARIEDAD,APTITUD_T,Aptitud from SHAPEFILE_",
