@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "metadata": {
+    "appmode": "shiny",
+    "primary_rmd": null,
+    "primary_html": null,
+    "content_category": "application",
+    "has_parameters": false
+  },
+  "locale": "en_US.UTF-8",
+  "platform": "R",
+  "engines": {
+    "R": {
+      "version": "4.3.2"
+    }
+  },
+  "packages": {
+    "shiny": {
+      "Source": "CRAN",
+      "Version": "1.8.0"
+    },
+    "shinydashboard": {
+      "Source": "CRAN",
+      "Version": "0.7.2"
+    },
+    "leaflet": {
+      "Source": "CRAN",
+      "Version": "2.2.2"
+    },
+    "leaflet.extras": {
+      "Source": "CRAN",
+      "Version": "1.0.0"
+    },
+    "leafgl": {
+      "Source": "CRAN",
+      "Version": "0.1.1"
+    },
+    "sf": {
+      "Source": "CRAN",
+      "Version": "1.0-16"
+    },
+    "openxlsx": {
+      "Source": "CRAN",
+      "Version": "4.2.6.1"
+    },
+    "shinyWidgets": {
+      "Source": "CRAN",
+      "Version": "0.8.6"
+    },
+    "htmltools": {
+      "Source": "CRAN",
+      "Version": "0.5.8"
+    },
+    "promises": {
+      "Source": "CRAN",
+      "Version": "1.3.0"
+    },
+    "httpuv": {
+      "Source": "CRAN",
+      "Version": "1.6.13"
+    },
+    "later": {
+      "Source": "CRAN",
+      "Version": "1.3.2"
+    },
+    "Rcpp": {
+      "Source": "CRAN",
+      "Version": "1.0.12"
+    }
+  },
+  "files": {
+    "app.R": "Inia6.R"
+  },
+  "runtimes": {
+    "r-latest": {
+      "init": "R",
+      "engine": "R",
+      "version": "4.3.2"
+    }
+  }
+}
