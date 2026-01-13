@@ -1,4 +1,3 @@
-install.packages("rsconnect")
 require(shiny)
 require(leaflet)
 library(leafgl)
@@ -268,4 +267,5 @@ server <- function(input, output){
   })
 }
 shinyApp(ui, server)
+
 
