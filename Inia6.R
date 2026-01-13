@@ -1,3 +1,12 @@
+install.packages(c(
+  "shiny","leaflet","leaflet.extras","leafgl","sf",
+  "shinydashboard","shinyWidgets","leafem","raster",
+  "openxlsx","htmltools"
+), dependencies = TRUE)
+
+install.packages("rsconnect")
+rsconnect::writeManifest(appPrimaryDoc = "Inia6.R")
+
 require(shiny)
 require(leaflet)
 library(leafgl)
@@ -267,5 +276,6 @@ server <- function(input, output){
   })
 }
 shinyApp(ui, server)
+
 
 
